@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+      (function () {
+        // If hosted on *.github.io/<repo>/, set base to "/<repo>/"; otherwise use "/"
+        var parts = location.pathname.split("/").filter(Boolean);
+        var baseHref =
+          location.hostname.endsWith("github.io") && parts.length > 0
+            ? "/" + parts[0] + "/"
+            : "/";
+        var baseEl = document.createElement("base");
+        baseEl.href = baseHref;
+        document.head.prepend(baseEl);
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact Us | Aethera Dental</title>
@@ -581,12 +594,12 @@
     </style>
   </head>
   <body class="fade-in">
-    <div data-include="/partials/header.html"></div>
+    <div data-include="partials/header.html"></div>
     <nav id="nd-mobile-nav" class="mobile-nav" role="dialog" aria-modal="true">
       <div class="mobile-nav__header">
-        <a class="mobile-nav__brand" href="/">
+        <a class="mobile-nav__brand" href="index.html">
           <img
-            src="/image-logo/logo.png"
+            src="image-logo/logo.png"
             alt="Nova Dental"
             class="mobile-nav__logo"
           />
@@ -597,20 +610,20 @@
       <hr class="mobile-nav__divider" />
 
       <ul class="mobile-nav__list" role="list">
-        <li><a class="mobile-nav__link" href="/">Home</a></li>
-        <li><a class="mobile-nav__link" href="/about.html">About</a></li>
+        <li><a class="mobile-nav__link" href="index.html">Home</a></li>
+        <li><a class="mobile-nav__link" href="about.html">About</a></li>
         <li>
-          <a class="mobile-nav__link" href="/services/index.html">Services</a>
+          <a class="mobile-nav__link" href="services/index.html">Services</a>
         </li>
-        <li><a class="mobile-nav__link" href="/gallery.html">Gallery</a></li>
+        <li><a class="mobile-nav__link" href="gallery.html">Gallery</a></li>
         <li>
-          <a class="mobile-nav__link" href="/testimonials.html">Testimonials</a>
+          <a class="mobile-nav__link" href="testimonials.html">Testimonials</a>
         </li>
-        <li><a class="mobile-nav__link" href="/contact.html">Contact</a></li>
+        <li><a class="mobile-nav__link" href="contact.html">Contact</a></li>
       </ul>
 
       <div class="mobile-nav__footer">
-        <a class="btn btn-header-outline-inverted" href="/contact.html"
+        <a class="btn btn-header-outline-inverted" href="contact.html"
           >Book An Appointment</a
         >
 
@@ -646,7 +659,7 @@
     <main>
       <section
         class="contact-hero"
-        style="background-image: url('/images/map/map-hero.jpg')"
+        style="background-image: url('images/map/map-hero.jpg')"
       >
         <div class="container">
           <div class="contact-hero-content reveal-on-scroll">
@@ -758,7 +771,7 @@
       </section>
     </main>
 
-    <div data-include="/partials/footer.html"></div>
+    <div data-include="partials/footer.html"></div>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {

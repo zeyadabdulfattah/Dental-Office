@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+      (function () {
+        // If hosted on *.github.io/<repo>/, set base to "/<repo>/"; otherwise use "/"
+        var parts = location.pathname.split("/").filter(Boolean);
+        var baseHref =
+          location.hostname.endsWith("github.io") && parts.length > 0
+            ? "/" + parts[0] + "/"
+            : "/";
+        var baseEl = document.createElement("base");
+        baseEl.href = baseHref;
+        document.head.prepend(baseEl);
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dental Implants | Aethera Dental</title>
@@ -888,12 +901,12 @@
     </style>
   </head>
   <body>
-    <div data-include="/partials/header.html"></div>
+    <div data-include="partials/header.html"></div>
     <nav id="nd-mobile-nav" class="mobile-nav" role="dialog" aria-modal="true">
       <div class="mobile-nav__header">
-        <a class="mobile-nav__brand" href="/">
+        <a class="mobile-nav__brand" href="index.html">
           <img
-            src="/image-logo/logo.png"
+            src="image-logo/logo.png"
             alt="Nova Dental"
             class="mobile-nav__logo"
           />
@@ -904,20 +917,20 @@
       <hr class="mobile-nav__divider" />
 
       <ul class="mobile-nav__list" role="list">
-        <li><a class="mobile-nav__link" href="/">Home</a></li>
-        <li><a class="mobile-nav__link" href="/about.html">About</a></li>
+        <li><a class="mobile-nav__link" href="index.html">Home</a></li>
+        <li><a class="mobile-nav__link" href="about.html">About</a></li>
         <li>
-          <a class="mobile-nav__link" href="/services/index.html">Services</a>
+          <a class="mobile-nav__link" href="services/index.html">Services</a>
         </li>
-        <li><a class="mobile-nav__link" href="/gallery.html">Gallery</a></li>
+        <li><a class="mobile-nav__link" href="gallery.html">Gallery</a></li>
         <li>
-          <a class="mobile-nav__link" href="/testimonials.html">Testimonials</a>
+          <a class="mobile-nav__link" href="testimonials.html">Testimonials</a>
         </li>
-        <li><a class="mobile-nav__link" href="/contact.html">Contact</a></li>
+        <li><a class="mobile-nav__link" href="contact.html">Contact</a></li>
       </ul>
 
       <div class="mobile-nav__footer">
-        <a class="btn btn-header-outline-inverted" href="/contact.html"
+        <a class="btn btn-header-outline-inverted" href="contact.html"
           >Book An Appointment</a
         >
 
@@ -954,14 +967,14 @@
       <section class="hero">
         <div
           class="hero-background parallax"
-          style="background-image: url('/images-services/Dental-Implant.png')"
+          style="background-image: url('images-services/Dental-Implant.png')"
           data-parallax-speed="0.12"
         ></div>
         <div class="hero-content reveal-on-scroll">
           <h1 class="text-reveal"><span>Dental Implants</span></h1>
           <p>The Permanent, Natural-Feeling Solution for Missing Teeth</p>
           <a
-            href="/contact.html"
+            href="contact.html"
             class="btn btn-hero-contrast"
             aria-label="Consult an implant specialist"
             >Consult an Implant Specialist</a
@@ -974,7 +987,7 @@
           <div class="split-section">
             <div class="split-image split-sticky reveal-on-scroll">
               <img
-                src="/images-services/implant2.png"
+                src="images-services/implant2.png"
                 alt="Smiling person showing healthy, complete teeth"
               />
             </div>
@@ -1076,12 +1089,12 @@
           <div class="before-after-slider reveal-on-scroll" data-ba-slider>
             <div class="ba-image-container">
               <img
-                src="/images-gallery/implant-before.png"
+                src="images-gallery/implant-before.png"
                 alt="Patient's smile with a missing tooth before implant"
               />
               <div class="ba-image-after">
                 <img
-                  src="/images-gallery/implant-after.png"
+                  src="images-gallery/implant-after.png"
                   alt="Patient's smile with a completed dental implant"
                 />
               </div>
@@ -1123,7 +1136,7 @@
             </div>
             <div class="split-image reveal-on-scroll">
               <img
-                src="/images-services/implant3.png"
+                src="images-services/implant3.png"
                 alt="Advanced 3D dental imaging machine"
               />
             </div>
@@ -1189,7 +1202,7 @@
         <div class="container">
           <div class="doctor-spotlight reveal-on-scroll">
             <img
-              src="/images/team/dr-lead.jpg"
+              src="images/team/dr-lead.jpg"
               alt="Portrait of Dr. Evelyn Reed"
             />
             <div>
@@ -1209,7 +1222,7 @@
 
       <section id="implants-closer" class="di-closer reveal">
         <div class="di-closer__bg" aria-hidden="true">
-          <img src="/images/services/closer-bg.jpg" alt="" loading="lazy" />
+          <img src="images/services/closer-bg.jpg" alt="" loading="lazy" />
           <div class="di-closer__overlay"></div>
         </div>
 
@@ -1222,7 +1235,7 @@
 
           <div class="di-closer__actions">
             <a
-              href="/contact.html"
+              href="contact.html"
               class="btn-header-outline"
               aria-label="Book An Appointment"
             >
@@ -1237,7 +1250,7 @@
       </section>
     </main>
 
-    <div data-include="/partials/footer.html"></div>
+    <div data-include="partials/footer.html"></div>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {

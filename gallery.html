@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+      (function () {
+        // If hosted on *.github.io/<repo>/, set base to "/<repo>/"; otherwise use "/"
+        var parts = location.pathname.split("/").filter(Boolean);
+        var baseHref =
+          location.hostname.endsWith("github.io") && parts.length > 0
+            ? "/" + parts[0] + "/"
+            : "/";
+        var baseEl = document.createElement("base");
+        baseEl.href = baseHref;
+        document.head.prepend(baseEl);
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Smile Gallery | Aethera Dental</title>
@@ -719,12 +732,12 @@
     </style>
   </head>
   <body class="fade-in">
-    <div data-include="/partials/header.html"></div>
+    <div data-include="partials/header.html"></div>
     <nav id="nd-mobile-nav" class="mobile-nav" role="dialog" aria-modal="true">
       <div class="mobile-nav__header">
-        <a class="mobile-nav__brand" href="/">
+        <a class="mobile-nav__brand" href="index.html">
           <img
-            src="/image-logo/logo.png"
+            src="image-logo/logo.png"
             alt="Nova Dental"
             class="mobile-nav__logo"
           />
@@ -735,20 +748,20 @@
       <hr class="mobile-nav__divider" />
 
       <ul class="mobile-nav__list" role="list">
-        <li><a class="mobile-nav__link" href="/">Home</a></li>
-        <li><a class="mobile-nav__link" href="/about.html">About</a></li>
+        <li><a class="mobile-nav__link" href="index.html">Home</a></li>
+        <li><a class="mobile-nav__link" href="about.html">About</a></li>
         <li>
-          <a class="mobile-nav__link" href="/services/index.html">Services</a>
+          <a class="mobile-nav__link" href="services/index.html">Services</a>
         </li>
-        <li><a class="mobile-nav__link" href="/gallery.html">Gallery</a></li>
+        <li><a class="mobile-nav__link" href="gallery.html">Gallery</a></li>
         <li>
-          <a class="mobile-nav__link" href="/testimonials.html">Testimonials</a>
+          <a class="mobile-nav__link" href="testimonials.html">Testimonials</a>
         </li>
-        <li><a class="mobile-nav__link" href="/contact.html">Contact</a></li>
+        <li><a class="mobile-nav__link" href="contact.html">Contact</a></li>
       </ul>
 
       <div class="mobile-nav__footer">
-        <a class="btn btn-header-outline-inverted" href="/contact.html"
+        <a class="btn btn-header-outline-inverted" href="contact.html"
           >Book An Appointment</a
         >
 
@@ -820,7 +833,7 @@
                 This patient wanted a brighter, more uniform smile. A set of
                 custom porcelain veneers corrected chips, discoloration, and
                 minor alignment issues for a stunning result. See more about
-                <a href="/services/veneers.html">Veneers</a>.
+                <a href="services/veneers.html">Veneers</a>.
               </p>
             </div>
           </div>
@@ -850,7 +863,8 @@
                 years of crowding and bite issues in just 18 months,
                 dramatically improving both aesthetics and function. Discover
                 our
-                <a href="/services/orthodontics.html">Orthodontics</a> services.
+                <a href="services/orthodontics.html">Orthodontics</a>
+                services.
               </p>
             </div>
           </div>
@@ -879,7 +893,7 @@
                 A failed front tooth was replaced with a dental implant and a
                 custom-matched crown. The result is indistinguishable from the
                 natural teeth. Learn about
-                <a href="/services/dental-implants.html">Dental Implants</a>.
+                <a href="services/dental-implants.html">Dental Implants</a>.
               </p>
             </div>
           </div>
@@ -908,7 +922,7 @@
                 Our in-office whitening treatment removed years of staining,
                 brightening this patient's smile by several shades in a single
                 visit. Explore
-                <a href="/services/hygiene-whitening.html">Teeth Whitening</a>.
+                <a href="services/hygiene-whitening.html">Teeth Whitening</a>.
               </p>
             </div>
           </div>
@@ -917,7 +931,7 @@
 
       <section id="implants-closer" class="di-closer reveal">
         <div class="di-closer__bg" aria-hidden="true">
-          <img src="/images/services/closer-bg.jpg" alt="" loading="lazy" />
+          <img src="images/services/closer-bg.jpg" alt="" loading="lazy" />
           <div class="di-closer__overlay"></div>
         </div>
 
@@ -930,7 +944,7 @@
 
           <div class="di-closer__actions">
             <a
-              href="/contact.html"
+              href="contact.html"
               class="btn-header-outline"
               aria-label="Book An Appointment"
             >
@@ -945,7 +959,7 @@
       </section>
     </main>
 
-    <div data-include="/partials/footer.html"></div>
+    <div data-include="partials/footer.html"></div>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
