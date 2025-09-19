@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+      (function () {
+        // If hosted on *.github.io/<repo>/, set base to "/<repo>/"; otherwise use "/"
+        var parts = location.pathname.split("/").filter(Boolean);
+        var baseHref =
+          location.hostname.endsWith("github.io") && parts.length > 0
+            ? "/" + parts[0] + "/"
+            : "/";
+        var baseEl = document.createElement("base");
+        baseEl.href = baseHref;
+        document.head.prepend(baseEl);
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Orthodontics | Aethera Dental</title>
@@ -751,6 +764,54 @@
       }
     </style>
     <style>
+      /* ===== Veneers — Before/After slider, local-only ===== */
+
+      /* (A) Frame sizing + centering (apply to the EXISTING slider root) */
+      .before-after-slider[data-ba-slider] {
+        max-width: 780px; /* adjust if desired */
+        width: min(92vw, 780px);
+        aspect-ratio: 4 / 3; /* keeps a nice shape */
+        margin: 0 auto 3rem;
+        overflow: hidden; /* prevents any edge gaps */
+        border-radius: 14px;
+        box-shadow: 0 12px 28px rgba(15, 40, 70, 0.1);
+        -webkit-user-select: none; /* Prevent image selection on drag */
+        user-select: none; /* Prevent image selection on drag */
+      }
+
+      /* (B) Make BOTH images cover the frame (target existing img nodes inside the slider) */
+      .before-after-slider[data-ba-slider] img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* kills the right-side white strip */
+        object-position: center;
+      }
+
+      /* If the slider uses an “after” overlay container, ensure it clips properly */
+      .before-after-slider[data-ba-slider] .ba-image-after,
+      .before-after-slider[data-ba-slider] .after,
+      .before-after-slider[data-ba-slider] [data-after] {
+        position: absolute; /* keep existing if already absolute */
+        inset: 0;
+        /* clip-path is set from JS; we just ensure it can clip the whole image area */
+      }
+
+      /* If your slider puts the two images absolutely, keep them pinned */
+      .before-after-slider[data-ba-slider] .ba-image-container,
+      .before-after-slider[data-ba-slider] .before-after-inner {
+        position: relative; /* do not remove existing positioning */
+      }
+
+      /* Mobile polish */
+      @media (max-width: 600px) {
+        .before-after-slider[data-ba-slider] {
+          max-width: 520px;
+          width: min(94vw, 520px);
+          aspect-ratio: 4 / 3;
+          margin: 0 auto 2rem;
+        }
+      }
       /* === Dental Implants closer (scoped, no global overrides) === */
       .di-closer {
         position: relative;
@@ -840,12 +901,12 @@
     </style>
   </head>
   <body>
-    <div data-include="/partials/header.html"></div>
+    <div data-include="partials/header.html"></div>
     <nav id="nd-mobile-nav" class="mobile-nav" role="dialog" aria-modal="true">
       <div class="mobile-nav__header">
-        <a class="mobile-nav__brand" href="/">
+        <a class="mobile-nav__brand" href="index.html">
           <img
-            src="/image-logo/logo.png"
+            src="image-logo/logo.png"
             alt="Nova Dental"
             class="mobile-nav__logo"
           />
@@ -856,20 +917,20 @@
       <hr class="mobile-nav__divider" />
 
       <ul class="mobile-nav__list" role="list">
-        <li><a class="mobile-nav__link" href="/">Home</a></li>
-        <li><a class="mobile-nav__link" href="/about.html">About</a></li>
+        <li><a class="mobile-nav__link" href="index.html">Home</a></li>
+        <li><a class="mobile-nav__link" href="about.html">About</a></li>
         <li>
-          <a class="mobile-nav__link" href="/services/index.html">Services</a>
+          <a class="mobile-nav__link" href="services/index.html">Services</a>
         </li>
-        <li><a class="mobile-nav__link" href="/gallery.html">Gallery</a></li>
+        <li><a class="mobile-nav__link" href="gallery.html">Gallery</a></li>
         <li>
-          <a class="mobile-nav__link" href="/testimonials.html">Testimonials</a>
+          <a class="mobile-nav__link" href="testimonials.html">Testimonials</a>
         </li>
-        <li><a class="mobile-nav__link" href="/contact.html">Contact</a></li>
+        <li><a class="mobile-nav__link" href="contact.html">Contact</a></li>
       </ul>
 
       <div class="mobile-nav__footer">
-        <a class="btn btn-header-outline-inverted" href="/contact.html"
+        <a class="btn btn-header-outline-inverted" href="contact.html"
           >Book An Appointment</a
         >
 
@@ -906,14 +967,14 @@
       <section class="hero">
         <div
           class="hero-background parallax"
-          style="background-image: url('/images-services/Orthodonotics.png')"
+          style="background-image: url('images-services/Veneers.png')"
           data-parallax-speed="0.12"
         ></div>
         <div class="hero-content reveal-on-scroll">
-          <h1 class="text-reveal"><span>Orthodontics</span></h1>
-          <p>Crafting Straighter, Healthier Smiles for All Ages</p>
-          <a href="/contact.html" class="btn btn-hero-contrast"
-            >Schedule Your Ortho Consult</a
+          <h1 class="text-reveal"><span>Porcelain Veneers</span></h1>
+          <p>The Art of the Perfect, Natural-Looking Smile</p>
+          <a href="contact.html" class="btn btn-hero-contrast"
+            >Design Your New Smile</a
           >
         </div>
       </section>
@@ -923,36 +984,36 @@
           <div class="split-section">
             <div class="split-image split-sticky reveal-on-scroll">
               <img
-                src="/images-services/ortho2.png"
-                alt="Person with a perfectly straight, confident smile"
+                src="images-services/veneers2.png"
+                alt="Woman with a flawless, radiant smile"
               />
             </div>
             <div class="split-content">
               <div class="reveal-on-scroll">
-                <h2>A Straighter Smile is a Healthier Smile</h2>
+                <h2>A Minimally Invasive Smile Makeover</h2>
                 <p>
-                  Orthodontic treatment is about more than just aesthetics.
-                  Properly aligned teeth are easier to clean, reducing the risk
-                  of decay and gum disease, and can improve your bite and
-                  overall oral function. We offer solutions for children, teens,
-                  and adults.
+                  Porcelain veneers are ultra-thin shells of ceramic material
+                  bonded to the front of teeth. This transformative procedure
+                  can be an ideal solution for improving your smile and can
+                  conceal a variety of dental imperfections.
                 </p>
                 <ul class="narrative-bullets">
                   <li>
-                    <strong>Boost Self-Esteem:</strong> Feel confident in your
-                    smile during and after treatment.
+                    <strong>Correct Multiple Flaws:</strong> Instantly fix
+                    chips, cracks, gaps, and severe discoloration.
                   </li>
                   <li>
-                    <strong>Improve Oral Health:</strong> Straight teeth are
-                    easier to brush and floss effectively.
+                    <strong>Achieve Natural Beauty:</strong> High-quality
+                    porcelain mimics the light-reflecting properties of natural
+                    teeth.
                   </li>
                   <li>
-                    <strong>Correct Bite Issues:</strong> Alleviate issues with
-                    chewing, speech, or jaw pain.
+                    <strong>Durable & Stain-Resistant:</strong> Enjoy a
+                    beautiful, white smile for years to come.
                   </li>
                   <li>
-                    <strong>Modern & Discreet Options:</strong> Choose from
-                    traditional braces or nearly invisible clear aligners.
+                    <strong>Conservative Approach:</strong> Veneers require
+                    minimal removal of natural tooth structure.
                   </li>
                 </ul>
               </div>
@@ -967,44 +1028,43 @@
             class="text-center reveal-on-scroll"
             style="margin: 0 auto 4rem auto"
           >
-            <h2>How It Works: Your Path to Alignment</h2>
+            <h2>How It Works: The Path to Perfection</h2>
             <p>
-              We tailor every orthodontic journey to the individual for the most
-              efficient and effective results.
+              Our smile design process is a collaborative art, ensuring your
+              final result is uniquely you.
             </p>
           </div>
           <div class="process-timeline">
             <div class="timeline-step reveal-on-scroll" data-step="1">
-              <h3>Initial Consultation & Digital Scan</h3>
+              <h3>Smile Design & Consultation</h3>
               <p>
-                We start with a thorough exam and use our iTero digital scanner
-                to create a precise 3D model of your teeth—no messy impressions
-                needed. We can even show you a simulation of your final result.
+                This is where we co-design your perfect smile. We discuss your
+                goals, take digital photos, and create a "digital wax-up" so you
+                can preview your new look before we even begin.
               </p>
             </div>
             <div class="timeline-step reveal-on-scroll" data-step="2">
-              <h3>Personalized Treatment Plan</h3>
+              <h3>Tooth Preparation</h3>
               <p>
-                Our orthodontic specialist, Dr. Chen, will analyze your scan and
-                develop a detailed treatment plan, discussing your options
-                (braces vs. clear aligners) and timeline with you.
+                A very thin layer of enamel is gently removed from the tooth
+                surface to make room for the veneer. We then take a precise
+                digital impression for our master ceramist.
               </p>
             </div>
             <div class="timeline-step reveal-on-scroll" data-step="3">
-              <h3>Active Treatment Phase</h3>
+              <h3>Temporary Veneers & Crafting</h3>
               <p>
-                Whether you choose braces or aligners, this is where the magic
-                happens. We'll have regular check-ins to monitor your progress
-                and make any necessary adjustments to keep your treatment on
-                track.
+                You'll leave our office with beautiful temporary veneers while
+                your custom porcelain veneers are meticulously hand-crafted by
+                our dental laboratory partner.
               </p>
             </div>
             <div class="timeline-step reveal-on-scroll" data-step="4">
-              <h3>Retention & The Big Reveal</h3>
+              <h3>Final Bonding</h3>
               <p>
-                Once your teeth are perfectly aligned, we'll remove your braces
-                or complete your aligner treatment. You'll receive a custom
-                retainer to ensure your beautiful new smile lasts a lifetime.
+                At your final appointment, we'll try in your custom veneers,
+                make any final adjustments, and then permanently bond them to
+                your teeth, revealing your stunning new smile.
               </p>
             </div>
           </div>
@@ -1017,22 +1077,19 @@
             class="text-center reveal-on-scroll"
             style="max-width: 700px; margin: 0 auto 4rem auto"
           >
-            <h2>Stunning Transformations</h2>
-            <p>
-              From subtle shifts to dramatic changes, see the power of modern
-              orthodontic care.
-            </p>
+            <h2>Picture-Perfect Results</h2>
+            <p>See how custom veneers can completely rejuvenate a smile.</p>
           </div>
           <div class="before-after-slider reveal-on-scroll" data-ba-slider>
             <div class="ba-image-container">
               <img
-                src="/images-gallery/ortho-before.png"
-                alt="Patient's smile with crooked teeth before orthodontics"
+                src="images-gallery/veneers-before.png"
+                alt="Patient's smile with chipped and uneven teeth"
               />
               <div class="ba-image-after">
                 <img
-                  src="/images-gallery/ortho-after.png"
-                  alt="Patient's perfectly straight smile after orthodontic treatment"
+                  src="images-gallery/veneers-after.png"
+                  alt="Patient's smile transformed with porcelain veneers"
                 />
               </div>
             </div>
@@ -1050,35 +1107,36 @@
           </h2>
           <div class="faq-accordion reveal-on-scroll">
             <details>
-              <summary>Am I too old for braces?</summary>
+              <summary>How do I care for my porcelain veneers?</summary>
               <div>
                 <p>
-                  It's never too late to achieve the smile you've always wanted!
-                  A large percentage of orthodontic patients are adults. We
-                  offer discreet options like clear aligners that fit perfectly
-                  into a professional lifestyle.
+                  Caring for veneers is simple: treat them as you would your
+                  natural teeth. Maintain good oral hygiene by brushing and
+                  flossing daily, and attend your regular dental check-ups and
+                  cleanings.
                 </p>
               </div>
             </details>
             <details>
-              <summary>How long will my treatment take?</summary>
+              <summary>Are veneers permanent?</summary>
               <div>
                 <p>
-                  Treatment time varies based on the complexity of your case. On
-                  average, comprehensive orthodontic treatment can take anywhere
-                  from 12 to 24 months. We will give you a personalized estimate
-                  during your consultation.
+                  Veneers are considered a permanent treatment because a small
+                  amount of enamel is removed to place them. However, the
+                  veneers themselves can last 10-20 years or more with proper
+                  care before they may need to be replaced.
                 </p>
               </div>
             </details>
             <details>
-              <summary>Is orthodontic treatment uncomfortable?</summary>
+              <summary>Will my veneers look fake?</summary>
               <div>
                 <p>
-                  It's normal to experience some mild soreness or pressure for a
-                  few days after getting your braces on or after an adjustment.
-                  This discomfort is temporary and can be managed with
-                  over-the-counter pain relievers.
+                  Absolutely not. We work with world-class ceramists who use
+                  multiple layers of high-quality porcelain to create a natural
+                  translucency and appearance. We meticulously match the shade
+                  and shape to complement your facial features for a result that
+                  is beautiful, not artificial.
                 </p>
               </div>
             </details>
@@ -1089,16 +1147,19 @@
       <section id="doctor-spotlight" class="section">
         <div class="container">
           <div class="doctor-spotlight reveal-on-scroll">
-            <img src="/doctor.png" alt="Portrait of Dr. Samuel Chen" />
+            <img
+              src="images/team/dr-lead.jpg"
+              alt="Portrait of Dr. Evelyn Reed"
+            />
             <div>
-              <h3>Meet Your Orthodontic Specialist</h3>
+              <h3>The Artistry of Cosmetic Dentistry</h3>
               <p>
-                <strong>Dr. Samuel Chen</strong> is our resident expert in
-                orthodontics. He received his specialty certificate from one of
-                the nation's top programs and is passionate about using the
-                latest digital technologies to create beautiful, functional
-                smiles. Dr. Chen is known for his meticulous approach and his
-                ability to connect with patients of all ages.
+                <strong>Dr. Evelyn Reed</strong> has a true passion for cosmetic
+                dentistry and smile design. Her advanced training in aesthetic
+                principles allows her to create smiles that are not just
+                beautiful, but also balanced and harmonious with each patient's
+                unique features. Her meticulous attention to detail ensures
+                every veneer case is a work of art.
               </p>
             </div>
           </div>
@@ -1107,7 +1168,7 @@
 
       <section id="implants-closer" class="di-closer reveal">
         <div class="di-closer__bg" aria-hidden="true">
-          <img src="/images/services/closer-bg.jpg" alt="" loading="lazy" />
+          <img src="images/services/closer-bg.jpg" alt="" loading="lazy" />
           <div class="di-closer__overlay"></div>
         </div>
 
@@ -1120,7 +1181,7 @@
 
           <div class="di-closer__actions">
             <a
-              href="/contact.html"
+              href="contact.html"
               class="btn-header-outline"
               aria-label="Book An Appointment"
             >
@@ -1135,7 +1196,7 @@
       </section>
     </main>
 
-    <div data-include="/partials/footer.html"></div>
+    <div data-include="partials/footer.html"></div>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
@@ -1337,6 +1398,27 @@
           { threshold: 0.3 }
         );
         io.observe(el);
+      })();
+    </script>
+    <script>
+      (() => {
+        const slider = document.querySelector(
+          ".before-after-slider[data-ba-slider]"
+        );
+        if (!slider) return;
+
+        const handle = slider.querySelector(".ba-slider-handle");
+        const after = slider.querySelector(".ba-image-after");
+        if (!after) return;
+
+        const setPos = (pct) => {
+          const clamped = Math.max(0, Math.min(100, pct));
+          if (handle) handle.style.left = clamped + "%";
+          after.style.clipPath = `polygon(${clamped}% 0, 100% 0, 100% 100%, ${clamped}% 100%)`;
+        };
+
+        /* Initial center so there’s no visual mismatch on load */
+        setPos(50);
       })();
     </script>
   </body>

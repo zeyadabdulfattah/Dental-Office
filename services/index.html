@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+      (function () {
+        // If hosted on *.github.io/<repo>/, set base to "/<repo>/"; otherwise use "/"
+        var parts = location.pathname.split("/").filter(Boolean);
+        var baseHref =
+          location.hostname.endsWith("github.io") && parts.length > 0
+            ? "/" + parts[0] + "/"
+            : "/";
+        var baseEl = document.createElement("base");
+        baseEl.href = baseHref;
+        document.head.prepend(baseEl);
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Our Services | Aethera Dental</title>
@@ -599,7 +612,7 @@
             rgba(255, 255, 255, 0.6),
             rgba(234, 244, 249, 0.92)
           ),
-          url("/images-hero/Natural-Looking Results.png") center / cover
+          url("images-hero/Natural-Looking Results.png") center / cover
             no-repeat;
 
         will-change: transform;
@@ -926,12 +939,12 @@
     </style>
   </head>
   <body class="fade-in">
-    <div data-include="/partials/header.html"></div>
+    <div data-include="partials/header.html"></div>
     <nav id="nd-mobile-nav" class="mobile-nav" role="dialog" aria-modal="true">
       <div class="mobile-nav__header">
-        <a class="mobile-nav__brand" href="/">
+        <a class="mobile-nav__brand" href="index.html">
           <img
-            src="/image-logo/logo.png"
+            src="image-logo/logo.png"
             alt="Nova Dental"
             class="mobile-nav__logo"
           />
@@ -942,20 +955,20 @@
       <hr class="mobile-nav__divider" />
 
       <ul class="mobile-nav__list" role="list">
-        <li><a class="mobile-nav__link" href="/">Home</a></li>
-        <li><a class="mobile-nav__link" href="/about.html">About</a></li>
+        <li><a class="mobile-nav__link" href="index.html">Home</a></li>
+        <li><a class="mobile-nav__link" href="about.html">About</a></li>
         <li>
-          <a class="mobile-nav__link" href="/services/index.html">Services</a>
+          <a class="mobile-nav__link" href="services/index.html">Services</a>
         </li>
-        <li><a class="mobile-nav__link" href="/gallery.html">Gallery</a></li>
+        <li><a class="mobile-nav__link" href="gallery.html">Gallery</a></li>
         <li>
-          <a class="mobile-nav__link" href="/testimonials.html">Testimonials</a>
+          <a class="mobile-nav__link" href="testimonials.html">Testimonials</a>
         </li>
-        <li><a class="mobile-nav__link" href="/contact.html">Contact</a></li>
+        <li><a class="mobile-nav__link" href="contact.html">Contact</a></li>
       </ul>
 
       <div class="mobile-nav__footer">
-        <a class="btn btn-header-outline-inverted" href="/contact.html"
+        <a class="btn btn-header-outline-inverted" href="contact.html"
           >Book An Appointment</a
         >
 
@@ -1019,7 +1032,7 @@
             <div id="implants" class="service-spotlight reveal-on-scroll">
               <div class="spotlight-image">
                 <img
-                  src="/images-services/Dental-Implant.png"
+                  src="images-services/Dental-Implant.png"
                   alt="Close-up of a high-quality dental implant"
                 />
               </div>
@@ -1030,7 +1043,7 @@
                   state-of-the-art dental implants, the gold standard for
                   replacing missing teeth.
                 </p>
-                <a href="/services/dental-implants.html" class="btn"
+                <a href="services/dental-implants.html" class="btn"
                   >Learn More →</a
                 >
               </div>
@@ -1039,7 +1052,7 @@
             <div id="orthodontics" class="service-spotlight reveal-on-scroll">
               <div class="spotlight-image">
                 <img
-                  src="/images-services/Orthodonotics.png"
+                  src="images-services/Orthodonotics.png"
                   alt="Orthodontist explaining a treatment plan with braces on a screen"
                 />
               </div>
@@ -1050,7 +1063,7 @@
                   orthodontic solutions, including traditional braces and modern
                   clear aligners.
                 </p>
-                <a href="/services/orthodontics.html" class="btn"
+                <a href="services/orthodontics.html" class="btn"
                   >Learn More →</a
                 >
               </div>
@@ -1059,7 +1072,7 @@
             <div id="veneers" class="service-spotlight reveal-on-scroll">
               <div class="spotlight-image">
                 <img
-                  src="/images-services/Veneers.png"
+                  src="images-services/Veneers.png"
                   alt="Dentist in a gloved hand holding a delicate porcelain veneer with tweezers"
                 />
               </div>
@@ -1070,14 +1083,14 @@
                   designed to correct imperfections and create a flawless,
                   natural look.
                 </p>
-                <a href="/services/veneers.html" class="btn">Learn More →</a>
+                <a href="services/veneers.html" class="btn">Learn More →</a>
               </div>
             </div>
 
             <div id="root-canal" class="service-spotlight reveal-on-scroll">
               <div class="spotlight-image">
                 <img
-                  src="/images-services/Root-canal.png"
+                  src="images-services/Root-canal.png"
                   alt="Dentist showing a patient their dental x-ray on a tablet"
                 />
               </div>
@@ -1088,7 +1101,7 @@
                   effective root canal therapy, performed with advanced,
                   comfort-focused techniques.
                 </p>
-                <a href="/services/root-canal-therapy.html" class="btn"
+                <a href="services/root-canal-therapy.html" class="btn"
                   >Learn More →</a
                 >
               </div>
@@ -1097,7 +1110,7 @@
             <div id="hygiene" class="service-spotlight reveal-on-scroll">
               <div class="spotlight-image">
                 <img
-                  src="/images-services/hygeine.png"
+                  src="images-services/hygeine.png"
                   alt="Dental hygienist smiling warmly at a patient during a cleaning"
                 />
               </div>
@@ -1108,7 +1121,7 @@
                   services and brighten your smile with our professional
                   whitening treatments.
                 </p>
-                <a href="/services/hygiene-whitening.html" class="btn"
+                <a href="services/hygiene-whitening.html" class="btn"
                   >Learn More →</a
                 >
               </div>
@@ -1117,7 +1130,7 @@
             <div id="pediatric" class="service-spotlight reveal-on-scroll">
               <div class="spotlight-image">
                 <img
-                  src="/images-services/pediatric.png"
+                  src="images-services/pediatric.png"
                   alt="Child smiling happily in a dental chair"
                 />
               </div>
@@ -1128,7 +1141,7 @@
                   smiles with our friendly, gentle, and fun pediatric dental
                   care.
                 </p>
-                <a href="/services/pediatric-dentistry.html" class="btn"
+                <a href="services/pediatric-dentistry.html" class="btn"
                   >Learn More →</a
                 >
               </div>
@@ -1140,7 +1153,7 @@
       <section id="services-closer" class="services-closer reveal reveal-grow">
         <div class="closer-bg">
           <img
-            src="/images/services/closer-bg.jpg"
+            src="images/services/closer-bg.jpg"
             alt=""
             aria-hidden="true"
             loading="lazy"
@@ -1157,7 +1170,7 @@
 
           <div class="closer-actions">
             <a
-              href="/contact.html"
+              href="contact.html"
               class="header-cta btn-header-outline"
               aria-label="Book An Appointment"
               >Book An Appointment</a
@@ -1171,7 +1184,7 @@
       </section>
     </main>
 
-    <div data-include="/partials/footer.html"></div>
+    <div data-include="partials/footer.html"></div>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {

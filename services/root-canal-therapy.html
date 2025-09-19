@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+      (function () {
+        // If hosted on *.github.io/<repo>/, set base to "/<repo>/"; otherwise use "/"
+        var parts = location.pathname.split("/").filter(Boolean);
+        var baseHref =
+          location.hostname.endsWith("github.io") && parts.length > 0
+            ? "/" + parts[0] + "/"
+            : "/";
+        var baseEl = document.createElement("base");
+        baseEl.href = baseHref;
+        document.head.prepend(baseEl);
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Root Canal Therapy | Aethera Dental</title>
@@ -638,102 +651,14 @@
         font-family: var(--header-font-family, inherit);
       }
     </style>
-    <style>
-      /* === Dental Implants closer (scoped, no global overrides) === */
-      .di-closer {
-        position: relative;
-        isolation: isolate;
-        min-height: clamp(460px, 54vh, 640px);
-        display: grid;
-        place-items: center;
-        padding: clamp(48px, 8vw, 96px) 24px;
-        overflow: hidden;
-        background: #eaf4f9;
-      }
-      .di-closer__bg {
-        position: absolute;
-        inset: 0;
-      }
-      .di-closer__bg img {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-        filter: blur(2px) saturate(105%);
-        transform: translateZ(0);
-      }
-      .di-closer__overlay {
-        position: absolute;
-        inset: 0;
-        background: #eaf4f9;
-        opacity: 0.9;
-      }
-
-      .di-closer__content {
-        position: relative;
-        z-index: 1;
-        max-width: 900px;
-        margin-inline: auto;
-        text-align: center;
-      }
-      .di-closer__title {
-        font-family: "Playfair Display", serif;
-        font-weight: 700;
-        color: #1b2a41;
-        letter-spacing: 0.2px;
-        line-height: 1.1;
-        font-size: clamp(32px, 5vw, 56px);
-        margin: 0 0 12px;
-      }
-      .di-closer__sub {
-        color: #395368;
-        font-size: clamp(16px, 1.8vw, 18px);
-        margin: 0 0 28px;
-      }
-      .di-closer__actions {
-        display: flex;
-        justify-content: center;
-      }
-      .di-closer .btn-header-outline {
-        margin: 0 auto;
-      }
-      .di-closer__notes {
-        margin-top: 40px;
-        color: #6b7c8c;
-        font-size: 14px;
-        letter-spacing: 0.2px;
-      }
-
-      @media (prefers-reduced-motion: no-preference) {
-        .di-closer.reveal .di-closer__content {
-          opacity: 0;
-          transform: translateY(16px) scale(0.985);
-          transform-origin: 50% 55%;
-          transition: opacity 0.42s ease,
-            transform 0.52s cubic-bezier(0.2, 0.7, 0.2, 1);
-        }
-        .di-closer.reveal.is-inview .di-closer__content {
-          opacity: 1;
-          transform: none;
-        }
-      }
-
-      @media (max-width: 640px) {
-        .di-closer {
-          padding: 56px 20px;
-        }
-      }
-    </style>
   </head>
   <body>
-    <div data-include="/partials/header.html"></div>
+    <div data-include="partials/header.html"></div>
     <nav id="nd-mobile-nav" class="mobile-nav" role="dialog" aria-modal="true">
       <div class="mobile-nav__header">
-        <a class="mobile-nav__brand" href="/">
+        <a class="mobile-nav__brand" href="index.html">
           <img
-            src="/image-logo/logo.png"
+            src="image-logo/logo.png"
             alt="Nova Dental"
             class="mobile-nav__logo"
           />
@@ -744,20 +669,20 @@
       <hr class="mobile-nav__divider" />
 
       <ul class="mobile-nav__list" role="list">
-        <li><a class="mobile-nav__link" href="/">Home</a></li>
-        <li><a class="mobile-nav__link" href="/about.html">About</a></li>
+        <li><a class="mobile-nav__link" href="index.html">Home</a></li>
+        <li><a class="mobile-nav__link" href="about.html">About</a></li>
         <li>
-          <a class="mobile-nav__link" href="/services/index.html">Services</a>
+          <a class="mobile-nav__link" href="services/index.html">Services</a>
         </li>
-        <li><a class="mobile-nav__link" href="/gallery.html">Gallery</a></li>
+        <li><a class="mobile-nav__link" href="gallery.html">Gallery</a></li>
         <li>
-          <a class="mobile-nav__link" href="/testimonials.html">Testimonials</a>
+          <a class="mobile-nav__link" href="testimonials.html">Testimonials</a>
         </li>
-        <li><a class="mobile-nav__link" href="/contact.html">Contact</a></li>
+        <li><a class="mobile-nav__link" href="contact.html">Contact</a></li>
       </ul>
 
       <div class="mobile-nav__footer">
-        <a class="btn btn-header-outline-inverted" href="/contact.html"
+        <a class="btn btn-header-outline-inverted" href="contact.html"
           >Book An Appointment</a
         >
 
@@ -794,13 +719,13 @@
       <section class="hero">
         <div
           class="hero-background parallax"
-          style="background-image: url('/images-services/Root-canal.png')"
+          style="background-image: url('images-services/Root-canal.png')"
           data-parallax-speed="0.12"
         ></div>
         <div class="hero-content reveal-on-scroll">
           <h1 class="text-reveal"><span>Root Canal Therapy</span></h1>
           <p>Relieving Pain and Saving Your Natural Teeth</p>
-          <a href="/contact.html" class="btn btn-hero-contrast"
+          <a href="contact.html" class="btn btn-hero-contrast"
             >Schedule a Consultation</a
           >
         </div>
@@ -811,7 +736,7 @@
           <div class="split-section">
             <div class="split-image split-sticky reveal-on-scroll">
               <img
-                src="/images-services/rootcanal2.png"
+                src="images-services/rootcanal2.png"
                 alt="Patient smiling, free from dental pain"
               />
             </div>
@@ -851,37 +776,19 @@
         </div>
       </section>
 
-      <section id="implants-closer" class="di-closer reveal">
-        <div class="di-closer__bg" aria-hidden="true">
-          <img src="/images/services/closer-bg.jpg" alt="" loading="lazy" />
-          <div class="di-closer__overlay"></div>
-        </div>
-
-        <div class="di-closer__content">
-          <h2 class="di-closer__title">Care Designed Around You</h2>
-          <p class="di-closer__sub">
-            A calm, unhurried consultation with modern diagnostics—on your
-            schedule.
+      <section class="section section-ice final-cta">
+        <div class="container reveal-on-scroll">
+          <h2>Don't Endure Tooth Pain</h2>
+          <p>
+            If you're experiencing severe tooth pain, don't wait. Contact us
+            immediately to see how we can help.
           </p>
-
-          <div class="di-closer__actions">
-            <a
-              href="/contact.html"
-              class="btn-header-outline"
-              aria-label="Book An Appointment"
-            >
-              Book An Appointment
-            </a>
-          </div>
-
-          <p class="di-closer__notes">
-            Same-week scheduling • No obligation • Easy rescheduling
-          </p>
+          <a href="contact.html" class="btn btn-cta">Request an Urgent Visit</a>
         </div>
       </section>
     </main>
 
-    <div data-include="/partials/footer.html"></div>
+    <div data-include="partials/footer.html"></div>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
@@ -1065,25 +972,6 @@
         // --- 3. EXECUTION ---
         loadPartials().then(initInteractions);
       });
-    </script>
-    <script>
-      // Reveal-on-scroll for this closer only (no global changes)
-      (() => {
-        const el = document.querySelector("#implants-closer.di-closer.reveal");
-        if (!el) return;
-        const io = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((e) => {
-              if (e.isIntersecting) {
-                e.target.classList.add("is-inview");
-                io.unobserve(e.target);
-              }
-            });
-          },
-          { threshold: 0.3 }
-        );
-        io.observe(el);
-      })();
     </script>
   </body>
 </html>
