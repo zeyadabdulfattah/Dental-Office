@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hygiene & Whitening | Aethera Dental</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* CSS TOKENS & VARIABLES */
+      :root {
+        --white: #ffffff;
+        --ice: #eaf4f9;
+        --light-blue: #a9d6e5;
+        --sky-blue-cta: #468faf;
+        --deep-navy: #1b2a41;
+        --cool-gray: #6b7c8c;
+        --gold-accent: #c9b08f;
+
+        --font-heading: "Playfair Display", serif;
+        --font-body: "Inter", sans-serif;
+
+        --transition-fast: 200ms;
+        --transition-med: 400ms;
+        --transition-slow: 600ms;
+      }
+
+      /* BASE & RESET STYLES */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        font-family: var(--font-body);
+        color: var(--cool-gray);
+        background-color: var(--white);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        opacity: 0;
+        transition: opacity var(--transition-med) ease-in-out;
+      }
+      body.fade-in {
+        opacity: 1;
+      }
+      body.no-scroll {
+        overflow: hidden;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: var(--font-heading);
+        color: var(--deep-navy);
+        line-height: 1.2;
+        margin: 0 0 1rem 0;
+      }
+      h1 {
+        font-size: 3.5rem;
+      }
+      h2 {
+        font-size: 2.75rem;
+      }
+      h3 {
+        font-size: 1.75rem;
+      }
+      p {
+        margin: 0 0 1.5rem 0;
+      }
+      a {
+        color: var(--sky-blue-cta);
+        text-decoration: none;
+        transition: color var(--transition-fast);
+      }
+      a:hover {
+        color: var(--deep-navy);
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      /* ANIMATIONS & REVEAL */
+      @keyframes text-mask-reveal {
+        from {
+          clip-path: inset(0 100% 0 0);
+        }
+        to {
+          clip-path: inset(0 0 0 0);
+        }
+      }
+      .text-reveal > span {
+        display: inline-block;
+        animation: text-mask-reveal 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+      }
+      .reveal-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity var(--transition-slow) ease-out,
+          transform var(--transition-slow) ease-out;
+      }
+      .reveal-on-scroll.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* GENERAL COMPONENTS */
+      .btn {
+        display: inline-block;
+        padding: 0.75rem 2rem;
+        font-family: var(--font-body);
+        font-weight: 500;
+        text-align: center;
+        border: none;
+        cursor: pointer;
+        transition: all var(--transition-fast) ease-in-out;
+        border-radius: 4px;
+      }
+
+      /* Default CTA for general buttons */
+      .btn-cta {
+        background-color: var(--sky-blue-cta);
+        color: var(--white);
+        border: 1px solid var(--gold-accent);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1),
+          inset 0 1px 2px rgba(255, 255, 255, 0.2);
+        position: relative;
+      }
+      .btn-cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(70, 143, 175, 0.4),
+          inset 0 1px 2px rgba(255, 255, 255, 0.1);
+      }
+
+      /* HEADER BUTTON */
+      .btn-header-outline {
+        background-color: transparent;
+        color: var(--sky-blue-cta);
+        border: 2px solid var(--sky-blue-cta);
+        padding: 0.6rem 2rem;
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 1.1rem;
+        letter-spacing: 0.05em;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        box-shadow: none;
+      }
+      .btn-header-outline:hover {
+        background-color: var(--sky-blue-cta);
+        color: var(--white);
+        border-color: var(--sky-blue-cta);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      }
+      .btn-header-outline:focus-visible {
+        outline: 2px solid var(--light-blue);
+        outline-offset: 2px;
+      }
+
+      /* NEW STYLE FOR HERO BUTTON ONLY */
+      .btn-hero-contrast {
+        color: var(--white); /* White text for max contrast */
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.1
+        ); /* Subtle, translucent background */
+        border: 2px solid rgba(255, 255, 255, 0.8); /* Stronger white border */
+        backdrop-filter: blur(5px); /* Frosted glass effect */
+        -webkit-backdrop-filter: blur(5px);
+        padding: 0.6rem 2rem;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.1rem;
+        letter-spacing: 0.05em;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Make text pop */
+      }
+
+      .btn-hero-contrast:hover {
+        background-color: var(--white); /* Solid white on hover */
+        color: var(--deep-navy); /* Dark text for contrast */
+        border-color: var(--white);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+      }
+
+      .btn-hero-contrast:focus-visible {
+        outline: 2px solid var(--light-blue);
+        outline-offset: 2px;
+      }
+
+      .btn-header-outline-inverted {
+        background-color: transparent;
+        color: var(--white);
+        border: 2px solid var(--white);
+        padding: 0.4rem 1.2rem;
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 0.85rem;
+        letter-spacing: 0.05em;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        box-shadow: none;
+        display: inline-block;
+      }
+      .btn-header-outline-inverted:hover {
+        background-color: var(--white);
+        color: var(--deep-navy);
+      }
+
+      /* HEADER */
+      .main-header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background-color: var(--white);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .header-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+        width: 100%;
+        min-height: 76px;
+      }
+      .header-nav,
+      .header-cta-container {
+        display: none;
+      }
+      .nav__toggle {
+        display: block;
+        position: relative;
+        z-index: 102; /* Ensure toggle is above overlay */
+      }
+
+      @media (min-width: 992px) {
+        .header-nav,
+        .header-cta-container {
+          display: block;
+        }
+        .header-nav {
+          margin: 0 auto;
+        }
+        .nav__toggle {
+          display: none;
+        }
+      }
+
+      .header-logo-img {
+        height: 150px;
+        width: auto;
+      }
+      .mobile-logo-img {
+        height: 60px;
+        width: auto;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 2.5rem;
+      }
+      .nav-link {
+        font-weight: 500;
+        color: var(--deep-navy);
+        position: relative;
+        padding: 1rem 0;
+      }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: 0.75rem;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--sky-blue-cta);
+        transition: width var(--transition-med) ease;
+      }
+      .nav-link:hover::after,
+      .nav-link.active::after {
+        width: 100%;
+      }
+
+      .nav-link {
+        font-family: "Cormorant Garamond", serif;
+
+        font-size: 1.1rem;
+        letter-spacing: 0.03em;
+      }
+
+      /* FOOTER */
+      .main-footer {
+        background-color: var(--deep-navy);
+        color: var(--light-blue);
+        padding: 4rem 0 2rem;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+      }
+      .footer-heading {
+        font-family: var(--font-body);
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 1rem;
+      }
+      .footer-list a {
+        color: var(--light-blue);
+      }
+      .footer-list a:hover {
+        color: var(--white);
+        text-decoration: underline;
+      }
+      .footer-address a {
+        color: var(--light-blue);
+      }
+      .footer-address a:hover {
+        color: var(--white);
+      }
+      .social-icons {
+        display: flex;
+        gap: 1rem;
+      }
+      .social-icon svg {
+        width: 24px;
+        height: 24px;
+        color: var(--light-blue);
+        transition: color var(--transition-fast);
+      }
+      .social-icon:hover svg {
+        color: var(--white);
+      }
+      .footer-bottom {
+        border-top: 1px solid var(--cool-gray);
+        margin-top: 3rem;
+        padding-top: 2rem;
+        text-align: center;
+        font-size: 0.8rem;
+        color: var(--cool-gray);
+      }
+
+      /* PAGE-SPECIFIC SECTIONS */
+      .section {
+        padding: 6rem 0;
+      }
+      .section-ice {
+        background-color: var(--ice);
+      }
+      .hero {
+        height: 70vh;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: var(--white);
+        overflow: hidden;
+      }
+      .hero-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        z-index: 1;
+      }
+      .hero::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to top,
+          rgba(27, 42, 65, 0.7),
+          rgba(27, 42, 65, 0.3)
+        );
+        z-index: 2;
+      }
+      .hero-content {
+        position: relative;
+        z-index: 3;
+      }
+      .hero h1 {
+        color: var(--white);
+        font-size: 4rem;
+      }
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+      }
+      .split-section {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 4rem;
+        align-items: center;
+      }
+      @media (min-width: 992px) {
+        .split-section {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      .split-image {
+        position: relative;
+      }
+      .split-image img {
+        border-radius: 8px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+      @media (min-width: 992px) {
+        .split-sticky {
+          position: sticky;
+          top: 120px;
+        }
+      }
+      .narrative-bullets li {
+        position: relative;
+        padding-left: 30px;
+        margin-bottom: 1rem;
+      }
+      .narrative-bullets li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--sky-blue-cta);
+        font-weight: 700;
+      }
+      .process-timeline {
+        position: relative;
+        padding-left: 40px;
+        border-left: 3px solid var(--light-blue);
+      }
+      .timeline-step {
+        position: relative;
+        margin-bottom: 4rem;
+      }
+      .timeline-step::before {
+        content: attr(data-step);
+        position: absolute;
+        left: -60px;
+        top: -10px;
+        width: 40px;
+        height: 40px;
+        background-color: var(--sky-blue-cta);
+        color: var(--white);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+      }
+      .timeline-step h3 {
+        font-size: 1.5rem;
+      }
+      .before-after-slider {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        line-height: 0;
+      }
+      .ba-image-container {
+        position: relative;
+      }
+      .ba-image-after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+      }
+      .ba-slider-handle {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 100%;
+        background-color: var(--white);
+        cursor: ew-resize;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .ba-slider-button {
+        width: 40px;
+        height: 40px;
+        border: 2px solid var(--white);
+        background-color: var(--sky-blue-cta);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+      }
+      .faq-accordion details {
+        border-bottom: 1px solid var(--light-blue);
+        padding: 1.5rem 0;
+      }
+      .faq-accordion summary {
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        list-style: none;
+      }
+      .faq-accordion summary::-webkit-details-marker {
+        display: none;
+      }
+      .faq-accordion summary::after {
+        content: "+";
+        font-size: 1.5rem;
+        transition: transform var(--transition-med);
+      }
+      .faq-accordion details[open] summary::after {
+        transform: rotate(45deg);
+      }
+      .faq-accordion div {
+        padding-top: 1rem;
+      }
+      .doctor-spotlight {
+        display: flex;
+        flex-direction: column;
+        md: flex-row;
+        gap: 2rem;
+        align-items: center;
+        background-color: var(--ice);
+        padding: 3rem;
+        border-radius: 8px;
+      }
+      .doctor-spotlight img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+      .final-cta {
+        text-align: center;
+      }
+      .final-cta h2 {
+        margin-bottom: 2rem;
+      }
+
+      /* --- NEW CSS FOR OFF-CANVAS MENU --- */
+      :root {
+        --brand-400: #468faf;
+      } /* Nova blue */
+      /* Hamburger Toggle Button */
+      .nav__toggle {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        z-index: 10000; /* Ensure it's above everything */
+      }
+      .nav__toggle span {
+        display: block;
+        width: 30px;
+        height: 3px;
+        background-color: var(--deep-navy);
+        border-radius: 4px;
+        transition: transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19),
+          opacity 0.22s ease-out, background-color 0.22s ease-in-out;
+      }
+      .nav__toggle span:not(:last-child) {
+        margin-bottom: 7px;
+      }
+      /* Change icon color to white when menu is open */
+      .nav__toggle.is-open span {
+        background-color: var(--white);
+      }
+      /* Animate to 'X' */
+      .nav__toggle.is-open span:nth-child(1) {
+        transform: translateY(10px) rotate(135deg);
+      }
+      .nav__toggle.is-open span:nth-child(2) {
+        opacity: 0;
+      }
+      .nav__toggle.is-open span:nth-child(3) {
+        transform: translateY(-10px) rotate(-135deg);
+      }
+
+      /* Drawer Shell */
+      #nd-mobile-nav {
+        min-height: 100svh; /* safe viewport height on mobile */
+        display: flex;
+        flex-direction: column;
+      }
+      .mobile-nav {
+        position: fixed;
+        inset: 0;
+        background: rgba(9, 27, 41, 0.95);
+        backdrop-filter: blur(10px);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(20px);
+        transition: opacity 0.4s, visibility 0.4s, transform 0.4s;
+        z-index: 9999;
+      }
+      .mobile-nav.is-open {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+      }
+
+      /* Header row inside drawer */
+      .mobile-nav__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 20px;
+        position: relative;
+        z-index: 2;
+      }
+      #nd-mobile-nav .mobile-nav__logo {
+        height: 48px; /* was ~40px; adjust if needed */
+        max-height: 56px; /* guardrail for small screens */
+      }
+      .mobile-nav__close {
+        background: none;
+        border: 0;
+        color: #fff;
+        font-size: 28px;
+        line-height: 1;
+        cursor: pointer;
+      }
+
+      /* Divider sits BELOW the header row */
+      .mobile-nav__divider {
+        border: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.18);
+        margin: 0;
+      }
+
+      /* Links list */
+      #nd-mobile-nav .mobile-nav__list {
+        flex: 1 1 auto;
+        overflow: auto;
+      }
+      .mobile-nav__list {
+        list-style: none;
+        padding: 16px 20px;
+      }
+      /* Link/Button styles */
+      .mobile-nav__link {
+        display: block;
+        color: #fff;
+        padding: 12px 10px;
+        border-radius: 8px;
+        /* Reset button styles to match links */
+        background: none;
+        border: none;
+        width: 100%;
+        text-align: left;
+        font-size: 1rem;
+        cursor: pointer;
+        font-family: var(--font-body);
+      }
+      .mobile-nav__link:focus {
+        outline: 2px solid rgba(255, 255, 255, 0.35);
+        outline-offset: 2px;
+      }
+
+      /* Services submenu */
+      .mobile-submenu {
+        max-height: 0;
+        overflow: hidden;
+        margin: 6px 0 0 0;
+        padding-left: 12px;
+        border-left: 2px solid rgba(255, 255, 255, 0.25);
+        transition: max-height 0.35s ease;
+      }
+      .mobile-submenu a {
+        display: block;
+        padding: 10px 0;
+        line-height: 1.45;
+        white-space: normal;
+      }
+
+      /* Footer inside drawer */
+      #nd-mobile-nav .mobile-nav__footer {
+        margin-top: auto;
+        padding: 12px 20px max(24px, env(safe-area-inset-bottom, 24px));
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      #nd-mobile-nav .mobile-nav__footer .btn-header-outline-inverted {
+        margin-bottom: 14px; /* space before contact info */
+      }
+      #nd-mobile-nav .mobile-nav__contact .contact-line {
+        display: block;
+        margin: 6px 0;
+        color: var(--brand-400);
+        text-decoration: none;
+      }
+      #nd-mobile-nav .mobile-nav__contact .contact-line:hover {
+        text-decoration: underline;
+      }
+      #nd-mobile-nav .mobile-nav__contact .hours {
+        color: rgba(255, 255, 255, 0.85);
+      }
+
+      /* Theme tint */
+      .btn-header-outline-inverted,
+      .has-submenu .chev {
+        border-color: #fff;
+        color: #fff;
+      }
+
+      /* Ensure all drawer text inherits header font */
+      #nd-mobile-nav,
+      #nd-mobile-nav .mobile-nav__link,
+      #nd-mobile-nav .mobile-submenu a,
+      #nd-mobile-nav .mobile-nav__footer {
+        font-family: var(--header-font-family, inherit);
+      }
+    </style>
+    <style>
+      /* ===== Veneers — Before/After slider, local-only ===== */
+
+      /* (A) Frame sizing + centering (apply to the EXISTING slider root) */
+      .before-after-slider[data-ba-slider] {
+        max-width: 780px; /* adjust if desired */
+        width: min(92vw, 780px);
+        aspect-ratio: 4 / 3; /* keeps a nice shape */
+        margin: 0 auto 3rem;
+        overflow: hidden; /* prevents any edge gaps */
+        border-radius: 14px;
+        box-shadow: 0 12px 28px rgba(15, 40, 70, 0.1);
+        -webkit-user-select: none; /* Prevent image selection on drag */
+        user-select: none; /* Prevent image selection on drag */
+      }
+
+      /* (B) Make BOTH images cover the frame (target existing img nodes inside the slider) */
+      .before-after-slider[data-ba-slider] img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* kills the right-side white strip */
+        object-position: center;
+      }
+
+      /* If the slider uses an “after” overlay container, ensure it clips properly */
+      .before-after-slider[data-ba-slider] .ba-image-after,
+      .before-after-slider[data-ba-slider] .after,
+      .before-after-slider[data-ba-slider] [data-after] {
+        position: absolute; /* keep existing if already absolute */
+        inset: 0;
+        /* clip-path is set from JS; we just ensure it can clip the whole image area */
+      }
+
+      /* If your slider puts the two images absolutely, keep them pinned */
+      .before-after-slider[data-ba-slider] .ba-image-container,
+      .before-after-slider[data-ba-slider] .before-after-inner {
+        position: relative; /* do not remove existing positioning */
+      }
+
+      /* Mobile polish */
+      @media (max-width: 600px) {
+        .before-after-slider[data-ba-slider] {
+          max-width: 520px;
+          width: min(94vw, 520px);
+          aspect-ratio: 4 / 3;
+          margin: 0 auto 2rem;
+        }
+      }
+      /* === Dental Implants closer (scoped, no global overrides) === */
+      .di-closer {
+        position: relative;
+        isolation: isolate;
+        min-height: clamp(460px, 54vh, 640px);
+        display: grid;
+        place-items: center;
+        padding: clamp(48px, 8vw, 96px) 24px;
+        overflow: hidden;
+        background: #eaf4f9;
+      }
+      .di-closer__bg {
+        position: absolute;
+        inset: 0;
+      }
+      .di-closer__bg img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        filter: blur(2px) saturate(105%);
+        transform: translateZ(0);
+      }
+      .di-closer__overlay {
+        position: absolute;
+        inset: 0;
+        background: #eaf4f9;
+        opacity: 0.9;
+      }
+
+      .di-closer__content {
+        position: relative;
+        z-index: 1;
+        max-width: 900px;
+        margin-inline: auto;
+        text-align: center;
+      }
+      .di-closer__title {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        color: #1b2a41;
+        letter-spacing: 0.2px;
+        line-height: 1.1;
+        font-size: clamp(32px, 5vw, 56px);
+        margin: 0 0 12px;
+      }
+      .di-closer__sub {
+        color: #395368;
+        font-size: clamp(16px, 1.8vw, 18px);
+        margin: 0 0 28px;
+      }
+      .di-closer__actions {
+        display: flex;
+        justify-content: center;
+      }
+      .di-closer .btn-header-outline {
+        margin: 0 auto;
+      }
+      .di-closer__notes {
+        margin-top: 40px;
+        color: #6b7c8c;
+        font-size: 14px;
+        letter-spacing: 0.2px;
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .di-closer.reveal .di-closer__content {
+          opacity: 0;
+          transform: translateY(16px) scale(0.985);
+          transform-origin: 50% 55%;
+          transition: opacity 0.42s ease,
+            transform 0.52s cubic-bezier(0.2, 0.7, 0.2, 1);
+        }
+        .di-closer.reveal.is-inview .di-closer__content {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .di-closer {
+          padding: 56px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div data-include="/partials/header.html"></div>
+    <nav id="nd-mobile-nav" class="mobile-nav" role="dialog" aria-modal="true">
+      <div class="mobile-nav__header">
+        <a class="mobile-nav__brand" href="/">
+          <img
+            src="/image-logo/logo.png"
+            alt="Nova Dental"
+            class="mobile-nav__logo"
+          />
+        </a>
+        <button class="mobile-nav__close" aria-label="Close menu">×</button>
+      </div>
+
+      <hr class="mobile-nav__divider" />
+
+      <ul class="mobile-nav__list" role="list">
+        <li><a class="mobile-nav__link" href="/">Home</a></li>
+        <li><a class="mobile-nav__link" href="/about.html">About</a></li>
+        <li>
+          <a class="mobile-nav__link" href="/services/index.html">Services</a>
+        </li>
+        <li><a class="mobile-nav__link" href="/gallery.html">Gallery</a></li>
+        <li>
+          <a class="mobile-nav__link" href="/testimonials.html">Testimonials</a>
+        </li>
+        <li><a class="mobile-nav__link" href="/contact.html">Contact</a></li>
+      </ul>
+
+      <div class="mobile-nav__footer">
+        <a class="btn btn-header-outline-inverted" href="/contact.html"
+          >Book An Appointment</a
+        >
+
+        <address
+          class="mobile-nav__contact"
+          itemscope
+          itemtype="https://schema.org/Dentist"
+        >
+          <meta itemprop="name" content="Nova Dental" />
+          <a class="contact-line" href="tel:+201234567890" itemprop="telephone"
+            >+20 123 456 7890</a
+          >
+          <a
+            class="contact-line"
+            href="mailto:appointments@novadental.com"
+            itemprop="email"
+            >appointments@novadental.com</a
+          >
+          <a
+            class="contact-line"
+            href="https://maps.google.com/?q=Nova%20Dental"
+            target="_blank"
+            rel="noopener"
+            itemprop="address"
+            >123 Smile Street, Cairo</a
+          >
+          <span class="contact-line hours" itemprop="openingHours"
+            >Sat–Thu 10:00–20:00 • Fri Closed</span
+          >
+        </address>
+      </div>
+    </nav>
+    <main>
+      <section class="hero">
+        <div
+          class="hero-background parallax"
+          style="background-image: url('/images-services/hygeine.png')"
+          data-parallax-speed="0.12"
+        ></div>
+        <div class="hero-content reveal-on-scroll">
+          <h1 class="text-reveal"><span>Hygiene & Whitening</span></h1>
+          <p>The Foundation of a Healthy, Radiant Smile</p>
+          <a href="/contact.html" class="btn btn-hero-contrast"
+            >Book Your Cleaning & Whitening</a
+          >
+        </div>
+      </section>
+
+      <section id="benefits" class="section">
+        <div class="container">
+          <div class="split-section">
+            <div class="split-image split-sticky reveal-on-scroll">
+              <img
+                src="/images-services/hygeine2.png"
+                alt="A dental hygienist providing gentle care to a patient"
+              />
+            </div>
+            <div class="split-content">
+              <div class="reveal-on-scroll">
+                <h2>The Cornerstone of Oral Health</h2>
+                <p>
+                  Preventive care is the most important service we provide.
+                  Regular professional cleanings and check-ups are essential for
+                  maintaining healthy teeth and gums, preventing complex issues
+                  before they start, and keeping your smile looking its best.
+                </p>
+                <ul class="narrative-bullets">
+                  <li>
+                    <strong>Prevent Cavities & Gum Disease:</strong> Remove
+                    plaque and tartar buildup that regular brushing can't reach.
+                  </li>
+                  <li>
+                    <strong>Early Detection of Issues:</strong> Identify
+                    potential problems like oral cancer, decay, or failing
+                    restorations early.
+                  </li>
+                  <li>
+                    <strong>Maintain Fresh Breath:</strong> Professional
+                    cleaning helps eliminate bacteria that cause persistent bad
+                    breath.
+                  </li>
+                  <li>
+                    <strong>Protect Your Overall Health:</strong> Oral health is
+                    directly linked to systemic health, including heart disease
+                    and diabetes.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="process" class="section section-ice">
+        <div class="container" style="max-width: 800px">
+          <div
+            class="text-center reveal-on-scroll"
+            style="margin: 0 auto 4rem auto"
+          >
+            <h2>How It Works: The Professional Hygiene Visit</h2>
+            <p>
+              Our hygiene appointments are thorough, gentle, and tailored to
+              you.
+            </p>
+          </div>
+          <div class="process-timeline">
+            <div class="timeline-step reveal-on-scroll" data-step="1">
+              <h3>Comprehensive Examination</h3>
+              <p>
+                Our dentist and hygienist perform a thorough check of your
+                teeth, gums, and entire mouth to screen for any potential
+                issues.
+              </p>
+            </div>
+            <div class="timeline-step reveal-on-scroll" data-step="2">
+              <h3>Gentle Scaling & Polishing</h3>
+              <p>
+                Our skilled hygienists use advanced tools to gently remove
+                hardened plaque (tartar) and then polish your teeth to remove
+                surface stains, leaving them smooth and bright.
+              </p>
+            </div>
+            <div class="timeline-step reveal-on-scroll" data-step="3">
+              <h3>Expert Flossing & Rinsing</h3>
+              <p>
+                We finish with a professional flossing and rinse to ensure every
+                surface is perfectly clean and fresh.
+              </p>
+            </div>
+            <div class="timeline-step reveal-on-scroll" data-step="4">
+              <h3>Personalized Home Care Plan</h3>
+              <p>
+                We provide you with personalized advice and techniques to help
+                you maintain your beautiful smile between visits.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="whitening-tech" class="section">
+        <div class="container">
+          <div class="split-section">
+            <div class="split-content reveal-on-scroll">
+              <h2>Professional Teeth Whitening</h2>
+              <p>
+                If you're looking to brighten your smile safely and effectively,
+                our professional whitening treatments offer dramatic results
+                that over-the-counter products simply can't match. We offer both
+                in-office and take-home options to fit your lifestyle.
+              </p>
+              <dl>
+                <dt><strong>In-Office Whitening</strong></dt>
+                <dd>
+                  Achieve a smile that's several shades brighter in just one
+                  comfortable, one-hour visit. Ideal for fast, dramatic results.
+                </dd>
+                <dt><strong>Custom Take-Home Trays</strong></dt>
+                <dd>
+                  Whiten your teeth at your convenience with custom-fitted trays
+                  and professional-grade gel for brilliant, lasting results.
+                </dd>
+              </dl>
+            </div>
+            <div class="split-image reveal-on-scroll">
+              <img
+                src="/images-services/hygein3.png"
+                alt="A custom teeth whitening tray and professional gel"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="results" class="section section-ice">
+        <div class="container">
+          <div
+            class="text-center reveal-on-scroll"
+            style="max-width: 700px; margin: 0 auto 4rem auto"
+          >
+            <h2>Bright, Healthy, and Beautiful</h2>
+            <p>
+              Experience the confidence that comes from a professionally
+              brightened smile.
+            </p>
+          </div>
+          <div class="before-after-slider reveal-on-scroll" data-ba-slider>
+            <div class="ba-image-container">
+              <img
+                src="/images-gallery/hygeiene-before.png"
+                alt="Teeth with yellowing and staining before whitening"
+              />
+              <div class="ba-image-after">
+                <img
+                  src="/images-gallery/hygein-after.png"
+                  alt="Brilliantly white teeth after professional whitening"
+                />
+              </div>
+            </div>
+            <div class="ba-slider-handle">
+              <div class="ba-slider-button">↔</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" class="section">
+        <div class="container" style="max-width: 900px">
+          <h2 class="text-center reveal-on-scroll">
+            Frequently Asked Questions
+          </h2>
+          <div class="faq-accordion reveal-on-scroll">
+            <details>
+              <summary>How often should I get a professional cleaning?</summary>
+              <div>
+                <p>
+                  For most patients, we recommend a professional cleaning and
+                  check-up every six months. Some patients, especially those
+                  with a history of gum disease, may benefit from more frequent
+                  visits.
+                </p>
+              </div>
+            </details>
+            <details>
+              <summary>Is teeth whitening safe for my enamel?</summary>
+              <div>
+                <p>
+                  Yes, when performed under professional supervision, teeth
+                  whitening is very safe. The materials we use are approved and
+                  have been proven not to damage tooth enamel. We ensure your
+                  gums are protected during in-office procedures.
+                </p>
+              </div>
+            </details>
+            <details>
+              <summary>How long do teeth whitening results last?</summary>
+              <div>
+                <p>
+                  Results can last for several years, depending on your diet and
+                  lifestyle. Avoiding staining foods and drinks like coffee,
+                  tea, and red wine will help maintain your bright smile. We
+                  also offer touch-up kits for our take-home whitening patients.
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section id="implants-closer" class="di-closer reveal">
+        <div class="di-closer__bg" aria-hidden="true">
+          <img src="/images/services/closer-bg.jpg" alt="" loading="lazy" />
+          <div class="di-closer__overlay"></div>
+        </div>
+
+        <div class="di-closer__content">
+          <h2 class="di-closer__title">Care Designed Around You</h2>
+          <p class="di-closer__sub">
+            A calm, unhurried consultation with modern diagnostics—on your
+            schedule.
+          </p>
+
+          <div class="di-closer__actions">
+            <a
+              href="/contact.html"
+              class="btn-header-outline"
+              aria-label="Book An Appointment"
+            >
+              Book An Appointment
+            </a>
+          </div>
+
+          <p class="di-closer__notes">
+            Same-week scheduling • No obligation • Easy rescheduling
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <div data-include="/partials/footer.html"></div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // --- 1. CLIENT-SIDE INCLUDES LOADER ---
+        const loadPartials = async () => {
+          const elements = document.querySelectorAll("[data-include]");
+          for (const el of elements) {
+            const url = el.getAttribute("data-include");
+            if (url) {
+              try {
+                const response = await fetch(url, { cache: "reload" });
+                if (!response.ok)
+                  throw new Error(
+                    `Failed to fetch ${url}: ${response.statusText}`
+                  );
+                const text = await response.text();
+                el.outerHTML = text;
+              } catch (error) {
+                console.error(`Error including file: ${url}`, error);
+                el.remove();
+              }
+            }
+          }
+        };
+
+        // --- 2. INITIALIZE ALL INTERACTIONS ---
+        const initInteractions = () => {
+          // Page transition
+          document.body.classList.add("fade-in");
+
+          // Update copyright year
+          const yearEl = document.getElementById("copyright-year");
+          if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+          // --- MOBILE NAVIGATION SCRIPT ---
+          const body = document.body;
+          const toggle = document.querySelector(".nav__toggle");
+          const drawer = document.querySelector("#nd-mobile-nav");
+
+          if (toggle && drawer) {
+            const closeBtn = drawer.querySelector(".mobile-nav__close");
+
+            const openDrawer = () => {
+              drawer.classList.add("is-open");
+              toggle.classList.add("is-open");
+              body.classList.add("no-scroll");
+              toggle.setAttribute("aria-expanded", "true");
+              trapFocus(drawer);
+            };
+            const closeDrawer = () => {
+              drawer.classList.remove("is-open");
+              toggle.classList.remove("is-open");
+              body.classList.remove("no-scroll");
+              toggle.setAttribute("aria-expanded", "false");
+              releaseFocus();
+            };
+
+            toggle.addEventListener("click", () => {
+              drawer.classList.contains("is-open")
+                ? closeDrawer()
+                : openDrawer();
+            });
+
+            closeBtn && closeBtn.addEventListener("click", closeDrawer);
+
+            document.addEventListener("keydown", (e) => {
+              if (e.key === "Escape") closeDrawer();
+            });
+            drawer.addEventListener("click", (e) => {
+              if (e.target === drawer) closeDrawer();
+            });
+
+            // Focus Trap
+            let prevFocus, firstFocusable, lastFocusable;
+            function trapFocus(container) {
+              prevFocus = document.activeElement;
+              const focusables = container.querySelectorAll(
+                'a,button,[tabindex]:not([tabindex="-1"])'
+              );
+              firstFocusable = focusables[0];
+              lastFocusable = focusables[focusables.length - 1];
+              (firstFocusable || container).focus();
+              container.addEventListener("keydown", handleTab);
+            }
+            function releaseFocus() {
+              drawer.removeEventListener("keydown", handleTab);
+              if (prevFocus) prevFocus.focus();
+            }
+            function handleTab(e) {
+              if (e.key !== "Tab") return;
+              if (e.shiftKey && document.activeElement === firstFocusable) {
+                e.preventDefault();
+                lastFocusable.focus();
+              } else if (
+                !e.shiftKey &&
+                document.activeElement === lastFocusable
+              ) {
+                e.preventDefault();
+                firstFocusable.focus();
+              }
+            }
+
+            // Close drawer automatically on desktop
+            window
+              .matchMedia("(min-width: 992px)")
+              .addEventListener("change", (m) => {
+                if (m.matches) closeDrawer();
+              });
+          }
+
+          // Reveal-on-scroll
+          const revealElements = document.querySelectorAll(".reveal-on-scroll");
+          const revealObserver = new IntersectionObserver(
+            (entries, observer) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("is-visible");
+                  observer.unobserve(entry.target);
+                }
+              });
+            },
+            { threshold: 0.1 }
+          );
+          revealElements.forEach((el) => revealObserver.observe(el));
+
+          // Before & After Sliders
+          document.querySelectorAll("[data-ba-slider]").forEach((slider) => {
+            const handle = slider.querySelector(".ba-slider-handle");
+            const afterImage = slider.querySelector(".ba-image-after");
+            let isDragging = false;
+
+            const moveHandler = (clientX) => {
+              const rect = slider.getBoundingClientRect();
+              let x = clientX - rect.left;
+              if (x < 0) x = 0;
+              if (x > rect.width) x = rect.width;
+              let percent = (x / rect.width) * 100;
+              handle.style.left = `${percent}%`;
+              afterImage.style.clipPath = `polygon(${percent}% 0, 100% 0, 100% 100%, ${percent}% 100%)`;
+            };
+
+            handle.addEventListener("mousedown", () => (isDragging = true));
+            handle.addEventListener("touchstart", () => (isDragging = true));
+
+            window.addEventListener("mouseup", () => (isDragging = false));
+            window.addEventListener("touchend", () => (isDragging = false));
+
+            window.addEventListener(
+              "mousemove",
+              (e) => isDragging && moveHandler(e.clientX)
+            );
+            window.addEventListener(
+              "touchmove",
+              (e) => isDragging && moveHandler(e.touches[0].clientX)
+            );
+          });
+
+          // SCRIPT TO MODIFY HEADER CTA ON THIS PAGE ONLY
+          const headerCTA = document.querySelector(".header-cta");
+          if (headerCTA) {
+            headerCTA.textContent = "Book An Appointment";
+            headerCTA.classList.remove("btn-cta");
+            headerCTA.classList.add("btn-header-outline");
+          }
+
+          // --- FONT MATCHER SCRIPT ---
+          (function () {
+            const probe = document.querySelector(".nav-link");
+            const drawer = document.querySelector("#nd-mobile-nav");
+            if (probe && drawer) {
+              const ff = getComputedStyle(probe).fontFamily;
+              document.documentElement.style.setProperty(
+                "--header-font-family",
+                ff
+              );
+              drawer.style.fontFamily = "var(--header-font-family)";
+            }
+          })();
+        };
+
+        // --- 3. EXECUTION ---
+        loadPartials().then(initInteractions);
+      });
+    </script>
+    <script>
+      // Reveal-on-scroll for this closer only (no global changes)
+      (() => {
+        const el = document.querySelector("#implants-closer.di-closer.reveal");
+        if (!el) return;
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add("is-inview");
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.3 }
+        );
+        io.observe(el);
+      })();
+    </script>
+    <script>
+      (() => {
+        const slider = document.querySelector(
+          ".before-after-slider[data-ba-slider]"
+        );
+        if (!slider) return;
+
+        const handle = slider.querySelector(".ba-slider-handle");
+        const after = slider.querySelector(".ba-image-after");
+        if (!after) return;
+
+        const setPos = (pct) => {
+          const clamped = Math.max(0, Math.min(100, pct));
+          if (handle) handle.style.left = clamped + "%";
+          after.style.clipPath = `polygon(${clamped}% 0, 100% 0, 100% 100%, ${clamped}% 100%)`;
+        };
+
+        /* Initial center so there’s no visual mismatch on load */
+        setPos(50);
+      })();
+    </script>
+  </body>
+</html>
