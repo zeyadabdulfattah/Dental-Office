@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+      (function () {
+        // If hosted on *.github.io/<repo>/, set base to "/<repo>/"; otherwise use "/"
+        var parts = location.pathname.split("/").filter(Boolean);
+        var baseHref =
+          location.hostname.endsWith("github.io") && parts.length > 0
+            ? "/" + parts[0] + "/"
+            : "/";
+        var baseEl = document.createElement("base");
+        baseEl.href = baseHref;
+        document.head.prepend(baseEl);
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About Us | Aethera Dental</title>
@@ -592,14 +605,102 @@
         font-family: var(--header-font-family, inherit);
       }
     </style>
+    <style>
+      /* === Dental Implants closer (scoped, no global overrides) === */
+      .di-closer {
+        position: relative;
+        isolation: isolate;
+        min-height: clamp(460px, 54vh, 640px);
+        display: grid;
+        place-items: center;
+        padding: clamp(48px, 8vw, 96px) 24px;
+        overflow: hidden;
+        background: #eaf4f9;
+      }
+      .di-closer__bg {
+        position: absolute;
+        inset: 0;
+      }
+      .di-closer__bg img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        filter: blur(2px) saturate(105%);
+        transform: translateZ(0);
+      }
+      .di-closer__overlay {
+        position: absolute;
+        inset: 0;
+        background: #eaf4f9;
+        opacity: 0.9;
+      }
+
+      .di-closer__content {
+        position: relative;
+        z-index: 1;
+        max-width: 900px;
+        margin-inline: auto;
+        text-align: center;
+      }
+      .di-closer__title {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        color: #1b2a41;
+        letter-spacing: 0.2px;
+        line-height: 1.1;
+        font-size: clamp(32px, 5vw, 56px);
+        margin: 0 0 12px;
+      }
+      .di-closer__sub {
+        color: #395368;
+        font-size: clamp(16px, 1.8vw, 18px);
+        margin: 0 0 28px;
+      }
+      .di-closer__actions {
+        display: flex;
+        justify-content: center;
+      }
+      .di-closer .btn-header-outline {
+        margin: 0 auto;
+      }
+      .di-closer__notes {
+        margin-top: 40px;
+        color: #6b7c8c;
+        font-size: 14px;
+        letter-spacing: 0.2px;
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .di-closer.reveal .di-closer__content {
+          opacity: 0;
+          transform: translateY(16px) scale(0.985);
+          transform-origin: 50% 55%;
+          transition: opacity 0.42s ease,
+            transform 0.52s cubic-bezier(0.2, 0.7, 0.2, 1);
+        }
+        .di-closer.reveal.is-inview .di-closer__content {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .di-closer {
+          padding: 56px 20px;
+        }
+      }
+    </style>
   </head>
   <body class="fade-in">
-    <div data-include="/partials/header.html"></div>
+    <div data-include="partials/header.html"></div>
     <nav id="nd-mobile-nav" class="mobile-nav" role="dialog" aria-modal="true">
       <div class="mobile-nav__header">
         <a class="mobile-nav__brand" href="/">
           <img
-            src="/image-logo/logo.png"
+            src="image-logo/logo.png"
             alt="Nova Dental"
             class="mobile-nav__logo"
           />
@@ -610,20 +711,20 @@
       <hr class="mobile-nav__divider" />
 
       <ul class="mobile-nav__list" role="list">
-        <li><a class="mobile-nav__link" href="/">Home</a></li>
-        <li><a class="mobile-nav__link" href="/about.html">About</a></li>
+        <li><a class="mobile-nav__link" href="index.html">Home</a></li>
+        <li><a class="mobile-nav__link" href="about.html">About</a></li>
         <li>
-          <a class="mobile-nav__link" href="/services/index.html">Services</a>
+          <a class="mobile-nav__link" href="services/index.html">Services</a>
         </li>
-        <li><a class="mobile-nav__link" href="/gallery.html">Gallery</a></li>
+        <li><a class="mobile-nav__link" href="gallery.html">Gallery</a></li>
         <li>
-          <a class="mobile-nav__link" href="/testimonials.html">Testimonials</a>
+          <a class="mobile-nav__link" href="testimonials.html">Testimonials</a>
         </li>
-        <li><a class="mobile-nav__link" href="/contact.html">Contact</a></li>
+        <li><a class="mobile-nav__link" href="contact.html">Contact</a></li>
       </ul>
 
       <div class="mobile-nav__footer">
-        <a class="btn btn-header-outline-inverted" href="/contact.html"
+        <a class="btn btn-header-outline-inverted" href="contact.html"
           >Book An Appointment</a
         >
 
@@ -686,7 +787,7 @@
             </div>
             <div class="story-image">
               <img
-                src="/images/about/story-01.jpg"
+                src="images-doctor/Doctors-founding.png"
                 alt="Vintage photo of the founding dentists"
               />
             </div>
@@ -707,7 +808,7 @@
             </div>
             <div class="story-image">
               <img
-                src="/images-doctor/CHAPTER2.png"
+                src="images-doctor/CHAPTER2.png"
                 alt="Modern, clean, and welcoming dental facility interior"
               />
             </div>
@@ -730,7 +831,7 @@
           <div class="team-roster">
             <div class="team-member reveal-on-scroll">
               <img
-                src="/images/team/dr-lead.jpg"
+                src="images-doctor/DR.women.png"
                 alt="Portrait of Dr. Evelyn Reed"
               />
               <h3>Dr. Evelyn Reed</h3>
@@ -741,7 +842,7 @@
               style="transition-delay: 150ms"
             >
               <img
-                src="/images/team/dr-ortho.jpg"
+                src="images-doctor/samuel.png"
                 alt="Portrait of Dr. Samuel Chen"
               />
               <h3>Dr. Samuel Chen</h3>
@@ -752,7 +853,7 @@
               style="transition-delay: 300ms"
             >
               <img
-                src="/images/team/dr-pediatric.jpg"
+                src="images-doctor/drmarcia.png"
                 alt="Portrait of Dr. Maria Garcia"
               />
               <h3>Dr. Maria Garcia</h3>
@@ -776,35 +877,53 @@
           </div>
           <div class="facility-gallery reveal-on-scroll">
             <img
-              src="/images/about/facility-hero.jpg"
+              src="images/about/facility-hero.jpg"
               alt="Main view of the dental clinic's reception"
               class="main-image"
             />
             <img
-              src="/images/services/dental-implants/tech.jpg"
+              src="images/services/dental-implants/tech.jpg"
               alt="Advanced dental scanning equipment"
             />
             <img
-              src="/images/about/story-01.jpg"
+              src="images/about/story-01.jpg"
               alt="A comfortable patient treatment room"
             />
           </div>
         </div>
       </section>
 
-      <section class="section section-ice final-cta">
-        <div class="container reveal-on-scroll">
-          <h2>Experience the Difference Yourself</h2>
-          <p>
-            We invite you to join the Aethera Dental family. Schedule your visit
-            today.
+      <section id="implants-closer" class="di-closer reveal">
+        <div class="di-closer__bg" aria-hidden="true">
+          <img src="images/services/closer-bg.jpg" alt="" loading="lazy" />
+          <div class="di-closer__overlay"></div>
+        </div>
+
+        <div class="di-closer__content">
+          <h2 class="di-closer__title">Care Designed Around You</h2>
+          <p class="di-closer__sub">
+            A calm, unhurried consultation with modern diagnostics—on your
+            schedule.
           </p>
-          <a href="/contact.html" class="btn btn-cta">Book Your Appointment</a>
+
+          <div class="di-closer__actions">
+            <a
+              href="contact.html"
+              class="btn-header-outline"
+              aria-label="Book An Appointment"
+            >
+              Book An Appointment
+            </a>
+          </div>
+
+          <p class="di-closer__notes">
+            Same-week scheduling • No obligation • Easy rescheduling
+          </p>
         </div>
       </section>
     </main>
 
-    <div data-include="/partials/footer.html"></div>
+    <div data-include="partials/footer.html"></div>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
@@ -988,6 +1107,25 @@
         // --- 3. EXECUTION ---
         loadPartials().then(initInteractions);
       });
+    </script>
+    <script>
+      // Reveal-on-scroll for this closer only (no global changes)
+      (() => {
+        const el = document.querySelector("#implants-closer.di-closer.reveal");
+        if (!el) return;
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add("is-inview");
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.3 }
+        );
+        io.observe(el);
+      })();
     </script>
   </body>
 </html>
