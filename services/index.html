@@ -40,6 +40,8 @@
         --transition-fast: 200ms;
         --transition-med: 400ms;
         --transition-slow: 600ms;
+
+        --header-height: 88px; /* Defined for sticky calculations */
       }
 
       /* BASE & RESET STYLES */
@@ -348,6 +350,7 @@
       /* PAGE-SPECIFIC SECTIONS */
       .section {
         padding: 6rem 0;
+        overflow: visible !important; /* Prevents parent from clipping sticky sidebar */
       }
       .section-ice {
         background-color: var(--ice);
@@ -365,14 +368,8 @@
         grid-template-columns: 1fr;
         gap: 4rem;
       }
-      @media (min-width: 992px) {
-        .services-hub-layout {
-          grid-template-columns: 300px 1fr;
-        }
-      }
+
       .services-toc {
-        position: sticky;
-        top: 120px;
         align-self: start;
       }
       .toc-title {
@@ -661,7 +658,7 @@
 
       /* Every spotlight block is an anchor target */
       .services-spotlights .service-spotlight {
-        scroll-margin-top: var(--sticky-header-offset);
+        scroll-margin-top: calc(var(--header-height, 88px) + 24px);
       }
 
       /* Active state styling for the left TOC (example, keep current palette) */
@@ -833,13 +830,29 @@
           transform: none !important;
         }
       }
-      /* Guard against any horizontal scroll from shadows/sticky items */
-      html,
-      body {
-        overflow-x: hidden;
-      }
+
       .container {
         width: min(92%, 1120px);
+      }
+
+      /* ===== DESKTOP STICKY SIDEBAR RESTORATION (>= 992px) ===== */
+      @media (min-width: 992px) {
+        .services-hub-layout {
+          display: grid;
+          grid-template-columns: 320px 1fr; /* match current visual width */
+          column-gap: 48px;
+          align-items: start;
+          overflow: visible !important; /* Prevents clipping sticky */
+        }
+
+        .services-toc {
+          position: sticky;
+          top: calc(
+            var(--header-height, 88px) + 24px
+          ); /* sit below fixed header */
+          height: max-content; /* required for sticky to engage */
+          align-self: start;
+        }
       }
 
       /* Tablet/phone: stack layout; TOC becomes sticky horizontal pill nav */
@@ -936,6 +949,146 @@
           --sticky-header-offset: 140px;
         }
       }
+
+      /* --- SERVICES PAGE MOBILE & TABLET REWORK --- */
+
+      /* --- 1. Mobile Styles (< 768px) --- */
+      @media (max-width: 767.98px) {
+        /* Hide the filter/TOC navigation on phones */
+        .services-toc {
+          display: none !important;
+        }
+
+        /* Force spotlight into a block-level card layout */
+        .services-spotlights .service-spotlight {
+          display: block;
+          gap: 0;
+        }
+
+        /* Card styling for mobile */
+        .svc-card {
+          border-radius: 14px;
+          background: #fff;
+          box-shadow: 0 8px 26px rgba(0, 0, 0, 0.06);
+          padding: 16px;
+          margin: 0 auto 20px;
+          max-width: 640px;
+        }
+
+        .svc-card .spotlight-content {
+          padding-top: 12px;
+        }
+
+        /* Image container and image styling */
+        .svc-media img {
+          width: 100%;
+          height: clamp(180px, 36vw, 280px);
+          aspect-ratio: 4 / 3;
+          object-fit: cover;
+          border-radius: 12px;
+          box-shadow: none;
+        }
+
+        /* Typography within the card */
+        .svc-title {
+          margin: 12px 0 6px;
+          font-size: clamp(18px, 5vw, 22px);
+          line-height: 1.25;
+        }
+
+        .svc-copy {
+          font-size: 16px;
+          line-height: 1.6;
+          color: #4b5a68;
+          margin-bottom: 16px;
+        }
+
+        /* Learn more link styling (overrides .btn) */
+        .svc-link.btn {
+          display: inline-block;
+          font-weight: 600;
+          text-underline-offset: 2px;
+          text-decoration: none;
+          padding: 0;
+          background: transparent;
+          border: none;
+          color: var(--sky-blue-cta);
+          box-shadow: none;
+        }
+        .svc-link.btn:hover {
+          background: transparent;
+          color: var(--deep-navy);
+          transform: none;
+          box-shadow: none;
+          text-decoration: underline;
+        }
+      }
+
+      /* --- 2. Tablet Styles (768px to 991.98px) --- */
+      @media (min-width: 768px) and (max-width: 991.98px) {
+        /* Force a single-column card layout, overriding the default 2-column grid */
+        .services-spotlights .service-spotlight {
+          display: block;
+          max-width: 720px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        /* Disable alternating image position on tablet */
+        .service-spotlight:nth-child(even) .spotlight-image {
+          grid-column: auto;
+          grid-row: auto;
+        }
+
+        /* Card container for tablet */
+        .svc-card {
+          padding: 20px;
+          margin-bottom: 24px;
+          background: #fff;
+          box-shadow: 0 8px 26px rgba(0, 0, 0, 0.06);
+          border-radius: 14px;
+        }
+
+        .svc-card .spotlight-content {
+          padding-top: 16px;
+        }
+
+        /* Image styling for tablet */
+        .svc-media img {
+          aspect-ratio: 16 / 9;
+          height: auto; /* Allow aspect-ratio to define height */
+          width: 100%;
+          object-fit: cover;
+          border-radius: 12px;
+          box-shadow: none;
+        }
+
+        /* Reuse mobile styles for typography and links */
+        .svc-title {
+          margin: 12px 0 6px;
+        }
+        .svc-copy {
+          margin-bottom: 16px;
+        }
+        .svc-link.btn {
+          display: inline-block;
+          font-weight: 600;
+          text-underline-offset: 2px;
+          text-decoration: none;
+          padding: 0;
+          background: transparent;
+          border: none;
+          color: var(--sky-blue-cta);
+          box-shadow: none;
+        }
+        .svc-link.btn:hover {
+          background: transparent;
+          color: var(--deep-navy);
+          transform: none;
+          box-shadow: none;
+          text-decoration: underline;
+        }
+      }
     </style>
   </head>
   <body class="fade-in">
@@ -1029,119 +1182,157 @@
           </aside>
 
           <div class="services-spotlights">
-            <div id="implants" class="service-spotlight reveal-on-scroll">
-              <div class="spotlight-image">
+            <div
+              id="implants"
+              class="service-spotlight svc-card reveal-on-scroll"
+            >
+              <div class="spotlight-image svc-media">
                 <img
                   src="images-services/Dental-Implant.png"
                   alt="Close-up of a high-quality dental implant"
+                  loading="lazy"
+                  width="1200"
+                  height="900"
                 />
               </div>
               <div class="spotlight-content">
-                <h2>Dental Implants</h2>
-                <p>
+                <h2 class="svc-title">Dental Implants</h2>
+                <p class="svc-copy">
                   Restore your smile's function and appearance with our
                   state-of-the-art dental implants, the gold standard for
                   replacing missing teeth.
                 </p>
-                <a href="services/dental-implants.html" class="btn"
+                <a href="services/dental-implants.html" class="btn svc-link"
                   >Learn More →</a
                 >
               </div>
             </div>
 
-            <div id="orthodontics" class="service-spotlight reveal-on-scroll">
-              <div class="spotlight-image">
+            <div
+              id="orthodontics"
+              class="service-spotlight svc-card reveal-on-scroll"
+            >
+              <div class="spotlight-image svc-media">
                 <img
                   src="images-services/Orthodonotics.png"
                   alt="Orthodontist explaining a treatment plan with braces on a screen"
+                  loading="lazy"
+                  width="1200"
+                  height="900"
                 />
               </div>
               <div class="spotlight-content">
-                <h2>Orthodontics</h2>
-                <p>
+                <h2 class="svc-title">Orthodontics</h2>
+                <p class="svc-copy">
                   Achieve a perfectly aligned smile at any age with our range of
                   orthodontic solutions, including traditional braces and modern
                   clear aligners.
                 </p>
-                <a href="services/orthodontics.html" class="btn"
+                <a href="services/orthodontics.html" class="btn svc-link"
                   >Learn More →</a
                 >
               </div>
             </div>
 
-            <div id="veneers" class="service-spotlight reveal-on-scroll">
-              <div class="spotlight-image">
+            <div
+              id="veneers"
+              class="service-spotlight svc-card reveal-on-scroll"
+            >
+              <div class="spotlight-image svc-media">
                 <img
                   src="images-services/Veneers.png"
                   alt="Dentist in a gloved hand holding a delicate porcelain veneer with tweezers"
+                  loading="lazy"
+                  width="1200"
+                  height="900"
                 />
               </div>
               <div class="spotlight-content">
-                <h2>Veneers</h2>
-                <p>
+                <h2 class="svc-title">Veneers</h2>
+                <p class="svc-copy">
                   Transform your smile with custom-crafted porcelain veneers,
                   designed to correct imperfections and create a flawless,
                   natural look.
                 </p>
-                <a href="services/veneers.html" class="btn">Learn More →</a>
+                <a href="services/veneers.html" class="btn svc-link"
+                  >Learn More →</a
+                >
               </div>
             </div>
 
-            <div id="root-canal" class="service-spotlight reveal-on-scroll">
-              <div class="spotlight-image">
+            <div
+              id="root-canal"
+              class="service-spotlight svc-card reveal-on-scroll"
+            >
+              <div class="spotlight-image svc-media">
                 <img
                   src="images-services/Root-canal.png"
                   alt="Dentist showing a patient their dental x-ray on a tablet"
+                  loading="lazy"
+                  width="1200"
+                  height="900"
                 />
               </div>
               <div class="spotlight-content">
-                <h2>Root Canal Therapy</h2>
-                <p>
+                <h2 class="svc-title">Root Canal Therapy</h2>
+                <p class="svc-copy">
                   Relieve pain and save your natural tooth with our gentle and
                   effective root canal therapy, performed with advanced,
                   comfort-focused techniques.
                 </p>
-                <a href="services/root-canal-therapy.html" class="btn"
+                <a href="services/root-canal-therapy.html" class="btn svc-link"
                   >Learn More →</a
                 >
               </div>
             </div>
 
-            <div id="hygiene" class="service-spotlight reveal-on-scroll">
-              <div class="spotlight-image">
+            <div
+              id="hygiene"
+              class="service-spotlight svc-card reveal-on-scroll"
+            >
+              <div class="spotlight-image svc-media">
                 <img
                   src="images-services/hygeine.png"
                   alt="Dental hygienist smiling warmly at a patient during a cleaning"
+                  loading="lazy"
+                  width="1200"
+                  height="900"
                 />
               </div>
               <div class="spotlight-content">
-                <h2>Hygiene & Whitening</h2>
-                <p>
+                <h2 class="svc-title">Hygiene & Whitening</h2>
+                <p class="svc-copy">
                   Maintain optimal oral health with our comprehensive hygiene
                   services and brighten your smile with our professional
                   whitening treatments.
                 </p>
-                <a href="services/hygiene-whitening.html" class="btn"
+                <a href="services/hygiene-whitening.html" class="btn svc-link"
                   >Learn More →</a
                 >
               </div>
             </div>
 
-            <div id="pediatric" class="service-spotlight reveal-on-scroll">
-              <div class="spotlight-image">
+            <div
+              id="pediatric"
+              class="service-spotlight svc-card reveal-on-scroll"
+            >
+              <div class="spotlight-image svc-media">
                 <img
                   src="images-services/pediatric.png"
                   alt="Child smiling happily in a dental chair"
+                  loading="lazy"
+                  width="1200"
+                  height="900"
                 />
               </div>
               <div class="spotlight-content">
-                <h2>Pediatric Dentistry</h2>
-                <p>
+                <h2 class="svc-title">Pediatric Dentistry</h2>
+                <p class="svc-copy">
                   Give your child a positive start to a lifetime of healthy
                   smiles with our friendly, gentle, and fun pediatric dental
                   care.
                 </p>
-                <a href="services/pediatric-dentistry.html" class="btn"
+                <a href="services/pediatric-dentistry.html" class="btn svc-link"
                   >Learn More →</a
                 >
               </div>
